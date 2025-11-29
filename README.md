@@ -1,15 +1,15 @@
-////Textbook Metadata Extractor
-//Purpose
+NCERT Textbook Metadata Extractor
+Purpose
 This tool automatically extracts metadata from NCERT textbook PDF files. It identifies chapter titles, page ranges, subject information, and other details from multiple PDF files at once, saving time compared to manual data entry.
 
-//What It Does
+What It Does
 The program analyzes NCERT chapter PDFs and extracts the following information:
 
 Filename
 
 Board (CBSE/NCERT)
 
-Class (1-12)
+Class (1–12)
 
 Subject (Physics, Chemistry, Mathematics, English, etc.)
 
@@ -19,15 +19,122 @@ Chapter number
 
 Chapter title
 
-Page range (start page to end page)
+Page range (start page → end page)
 
 Total number of pages
 
-Extraction method used
+Extraction method used (TOC, Visual, etc.)
 
-///Input Format
-The tool accepts two types of input:
+Input Format
+The tool accepts:
 
+ZIP file containing multiple chapter PDFs
+
+Single PDF file
+
+Output Format
+Results are provided in two downloadable formats:
+
+CSV file – can be opened in Excel or Google Sheets
+
+JSON file – suitable for databases or other programs
+
+Both contain the same extracted metadata, just in different formats.
+
+How It Works
+Upload a ZIP of NCERT chapter PDFs or a single PDF.
+
+The program automatically:
+
+Identifies board, class, subject, and medium from filenames.
+
+Scans for a Table of Contents (ps.pdf / contents) if available.
+
+Extracts chapter titles from the first page of each PDF.
+
+Detects physical page numbers printed on the pages.
+
+Calculates page ranges using start page and PDF length.
+
+Cleans and standardizes all extracted text.
+
+The extracted data is shown in a table in the interface.
+
+You can download the results as CSV or JSON.
+
+Key Features
+Smart Title Extraction
+Different strategies are used based on subject:
+
+Science subjects (Physics, Chemistry, Mathematics, Science):
+Uses font size and layout analysis to detect the main title.
+
+Language subjects (English, other language books):
+Uses heuristic and structure-based analysis to find the correct title block.
+
+Text Cleaning
+The tool automatically fixes common OCR and layout issues:
+
+Corrects spaced letters:
+
+E v e l i n e → Eveline
+
+Merges broken words:
+
+U NITS → UNITS
+
+Removes duplicate words or phrases:
+
+Title Title → Title
+
+Filters out headers, footers, and page numbers.
+
+Validation
+Cross-checks extracted titles against the Table of Contents when available.
+
+If the physical start page matches an entry in the TOC map, the TOC title overrides the visually extracted title (treated as golden source).
+
+Technical Requirements
+Python libraries:
+
+gradio
+
+pandas
+
+PyMuPDF (fitz)
+
+pdfplumber
+
+(Install via pip before running the tool.)
+
+Filename Convention
+The tool is optimized for NCERT-style filenames, for example:
+
+lekl101.pdf → Class 12, English, Kaleidoscope, Chapter 1
+
+keph102.pdf → Class 11, Physics, Chapter 2
+
+Chapter numbers are automatically parsed from these codes.
+
+Limitations
+Designed specifically for NCERT (and NCERT-like) textbook PDFs.
+
+Works best when filenames follow standard NCERT patterns.
+
+Requires PDFs with embedded text; pure scanned images without OCR may not work well.
+
+Usage
+Run the program.
+
+Click “Upload ZIP or PDF”.
+
+Select your NCERT ZIP or PDF file.
+
+Click “Extract Metadata”.
+
+Wait for processing to finish.
+
+Download the CSV or JSON from the provided buttons.
 ZIP file containing multiple PDF files
 
 Single PDF file
